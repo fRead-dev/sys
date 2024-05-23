@@ -1,5 +1,4 @@
 ![Fork GitHub Release](https://img.shields.io/github/v/release/fRead-dev/ParserInterface)
-
 [![Go Report Card](https://goreportcard.com/badge/github.com/fRead-dev/ParserInterface)](https://goreportcard.com/report/github.com/fRead-dev/ParserInterface)
 
 ![GitHub repo file or directory count](https://img.shields.io/github/directory-file-count/fRead-dev/ParserInterface?color=orange)

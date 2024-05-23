@@ -1,4 +1,4 @@
-package temp
+package ParserInterface
 
 type TimestampObj struct {
 	Create uint64 `json:"create"` //Время создания. Секунды от эпохи Unix

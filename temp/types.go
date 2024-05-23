@@ -22,7 +22,6 @@ type InfoObj struct {
 	Work   PersonalityObj `json:"work"`   // Указатель произведения
 	Author PersonalityObj `json:"author"` // Указатель автора
 
-	Domain    string       `json:"domain"`    // Домен
 	Language  string       `json:"language"`  // Язык произведения
 	Timestamp TimestampObj `json:"timestamp"` // Временные метки произведения
 	Size      SizeObj      `json:"size"`      // Размер произведения

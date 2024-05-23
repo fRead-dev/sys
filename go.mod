@@ -1,3 +1,3 @@
-//module github.com/fRead-dev/ParserInterface
-module ParserInterface
+module github.com/fRead-dev/ParserInterface
+
 go 1.21

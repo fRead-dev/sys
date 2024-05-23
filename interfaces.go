@@ -3,33 +3,32 @@ package ParserInterface
 import "io"
 
 type BasicMethods interface {
-	Hash(data *[]byte) (hash string)      // Hash [MUST BE] Получение контрольной суммы. Реализация может различаться между парсерами
-	ThisDomain(url string) (isValid bool) // ThisDomain [MUST BE] Проверка соответствует ли
+	Hash(data *[]byte) (hash string)                    // Hash Получение контрольной суммы. Реализация может различаться между парсерами
+	Decompression(data *[]byte) (decompressData []byte) // Decompression Распаковка сжатых данных. Реализация может различаться между парсерами
 
-	GetDomain() (domain string)   // GetDomain [MUST BE] Получение переменной домена
-	GetVersion() (version string) // GetVersion [MUST BE] Получение версии модуля
+	ThisDomain(url string) (isValid bool) // ThisDomain Проверка соответствует ли URL данному домену
 
-	GetRegExp() (regExpArr []string)                                    // GetRegExp [MUST BE] Получение списка регулярных выражений которыми проверятся соответствие домену
-	GetWork(url string) (isOK bool, idWork string)                      // GetWork [MUST BE] Получение ID работы из url
-	GeAuthor(url string) (isOK bool, idWork string, idAutor string)     // GeAuthor [MUST BE] Получение ID автора из url
-	GetChapter(url string) (isOK bool, idWork string, idChapter string) // GetChapter [MUST BE] Получение ID главы из url
+	GetDomain() (domain string)      // GetDomain Получение переменной домена
+	GetVersion() (version string)    // GetVersion Получение версии модуля
+	GetRegExp() (regExpArr []string) // GetRegExp Получение списка регулярных выражений которыми проверятся соответствие домену
 
-	UrlWork(idWork string) (url string)                      // UrlWork [MUST BE] Генерация URL к произведению по ID
-	UrlAuthor(idWork string, idAutor string) (url string)    // UrlAuthor [MUST BE] Генерация URL к автору по ID
-	UrlChapter(idWork string, idChapter string) (url string) // UrlChapter [MUST BE] Генерация URL к главе по ID
+	GetWork(url string) (err error, idWork string)                      // GetWork Получение ID работы из url
+	GeAuthor(url string) (err error, idWork string, idAutor string)     // GeAuthor Получение ID автора из url
+	GetChapter(url string) (err error, idWork string, idChapter string) // GetChapter Получение ID главы из url
+
+	UrlWork(idWork string) (url string)                      // UrlWork Генерация URL к произведению по ID
+	UrlAuthor(idWork string, idAutor string) (url string)    // UrlAuthor Генерация URL к автору по ID
+	UrlChapter(idWork string, idChapter string) (url string) // UrlChapter Генерация URL к главе по ID
 }
 
 type LoadMethods interface {
-	Ping() (isAvailable bool)                                       // Ping [MUST BE] Проверка доступности домена
-	PingWork(idWork string) (isAvailable bool)                      // PingWork [MUST BE] Проверка доступности работы
-	PingChapter(idWork string, idChapter string) (isAvailable bool) // PingChapter [MUST BE] Проверка доступности главы
+	Ping() (err error)                                       // Ping Проверка доступности домена
+	PingWork(idWork string) (err error)                      // PingWork Проверка доступности работы
+	PingChapter(idWork string, idChapter string) (err error) // PingChapter Проверка доступности главы
 
-	LoadWork(idWork string) (globalObj GlobalObj)                  // LoadWork [MUST BE] Загрузка работы полностью по ID
-	LoadInfo(idWork string) (infoObj InfoObj)                      // LoadInfo [MUST BE] Загрузка информация о работе по ID
-	LoadChapter(idWork string, idChapter string) (pageObj PageObj) // LoadChapter [MUST BE] Загрузка главы по ID
-}
+	LoadWork(idWork string) (err error, globalObj GlobalObj)                               // LoadWork Загрузка работы полностью по ID
+	LoadWorkFromFile(fileType string, htmlText io.Reader) (err error, globalObj GlobalObj) // LoadWorkFromFile Загрузка работы полностью из файла. Если домен не поддерживает скачивание файлов то должна быть заглушка с ошибкой
 
-type ParserMethods interface {
-	ParseInfo(htmlText io.Reader) (infoObj InfoObj)    // ParseInfo [MUST BE]	Парсинг информации о работе из html
-	ParseChapter(htmlText io.Reader) (pageObj PageObj) // ParseChapter [MUST BE] Парсинг главы из html
+	LoadInfo(idWork string) (err error, infoObj InfoObj)                      // LoadInfo Загрузка информация о работе по ID
+	LoadChapter(idWork string, idChapter string) (err error, pageObj PageObj) // LoadChapter Загрузка главы по ID
 }

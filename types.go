@@ -1,8 +1,10 @@
 package ParserInterface
 
+import "time"
+
 type TimestampObj struct {
-	Create uint64 `json:"create"` //Время создания. Секунды от эпохи Unix
-	Update uint64 `json:"update"` //Время последнего обновления. Секунды от эпохи Unix
+	Create time.Time `json:"create"` //Время создания.
+	Update time.Time `json:"update"` //Время последнего обновления.
 }
 
 type SizeObj struct {

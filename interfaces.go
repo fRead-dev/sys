@@ -4,6 +4,7 @@ import "io"
 
 type BasicMethods interface {
 	Hash(data *[]byte) (hash string)                    // Hash Получение контрольной суммы. Реализация может различаться между парсерами
+	Сompression(data *[]byte) (compressData []byte)     // Сompression	Упаковка полученных данных для буферизации. Реализация может различаться между парсерами
 	Decompression(data *[]byte) (decompressData []byte) // Decompression Распаковка сжатых данных. Реализация может различаться между парсерами
 
 	ThisDomain(url string) (isValid bool) // ThisDomain Проверка соответствует ли URL данному домену

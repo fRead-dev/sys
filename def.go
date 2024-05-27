@@ -15,7 +15,10 @@ func defError(methodNAme string) error {
 
 //////////////////////////////////////////////////////////////////////////////////////
 
+// StructDef basic structure with default initialized methods.
 type StructDef struct{}
+
+/*####*/
 
 // Hash retrieves the checksum. Fixed length of 16 characters.
 func (obj *StructDef) Hash(data *[]byte) (hash string) {

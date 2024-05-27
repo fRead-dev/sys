@@ -1,11 +1,25 @@
 package ParserInterface
 
-import "io"
+import (
+	"encoding/hex"
+	"golang.org/x/crypto/blake2b"
+	"io"
+)
 
 type StructDef struct{}
 
 // Hash Получение контрольной суммы.
-func (obj *StructDef) Hash(data *[]byte) (hash string) { return }
+func (obj *StructDef) Hash(data *[]byte) (hash string) {
+	hasher, err := blake2b.New(16, nil)
+	if err != nil {
+		return
+	}
+
+	hasher.Write(*data)
+	sum := hasher.Sum(nil)
+
+	return hex.EncodeToString(sum)
+}
 
 // Сompression	Упаковка полученных данных для буферизации
 func (obj *StructDef) Сompression(data *[]byte) (compressData []byte) { return }

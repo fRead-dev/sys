@@ -1,7 +1,9 @@
 package ParserInterface
 
 import (
+	"bytes"
 	"encoding/hex"
+	"github.com/andybalholm/brotli"
 	"golang.org/x/crypto/blake2b"
 	"io"
 )
@@ -22,10 +24,35 @@ func (obj *StructDef) Hash(data *[]byte) (hash string) {
 }
 
 // Сompression	Упаковка полученных данных для буферизации
-func (obj *StructDef) Сompression(data *[]byte) (compressData []byte) { return }
+func (obj *StructDef) Сompression(data *[]byte) (compressData []byte, err error) {
+	var buf bytes.Buffer
+	writer := brotli.NewWriterLevel(&buf, brotli.BestCompression)
+
+	_, err = writer.Write(*data)
+	if err != nil {
+		return nil, err
+	}
+
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
 
 // Decompression Распаковка сжатых данных
-func (obj *StructDef) Decompression(data *[]byte) (decompressData []byte) { return }
+func (obj *StructDef) Decompression(data *[]byte) (decompressData []byte, err error) {
+	var buf bytes.Buffer
+	reader := brotli.NewReader(bytes.NewReader(*data))
+
+	_, err = io.Copy(&buf, reader)
+	if err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
 
 //
 

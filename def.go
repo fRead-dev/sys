@@ -9,6 +9,12 @@ import (
 	"io"
 )
 
+func defError(methodNAme string) error {
+	return fmt.Errorf("Method `%s` not specified", methodNAme)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
 type StructDef struct{}
 
 // Hash Получение контрольной суммы.
@@ -75,58 +81,84 @@ func (obj *StructDef) GetRegExp() (regExpArr []string) { return }
 
 // GetWork Получение ID работы из url
 func (obj *StructDef) GetWork(url string) (idWork string, err error) {
-	err = fmt.Errorf("Method `%s` not specified", "GetWork")
+	err = defError("GetWork")
 	return
 }
 
 // GeAuthor Получение ID автора из url
 func (obj *StructDef) GeAuthor(url string) (idWork string, idAutor string, err error) {
-	err = fmt.Errorf("Method `%s` not specified", "GeAuthor")
+	err = defError("GeAuthor")
 	return
 }
 
 // GetChapter Получение ID главы из url
 func (obj *StructDef) GetChapter(url string) (idWork string, idChapter string, err error) {
-	err = fmt.Errorf("Method `%s` not specified", "GetChapter")
+	err = defError("GetChapter")
 	return
 }
 
 //
 
 // UrlWork Генерация URL к произведению по ID
-func (obj *StructDef) UrlWork(idWork string) (url string, err error) { return }
+func (obj *StructDef) UrlWork(idWork string) (url string, err error) {
+	err = defError("UrlWork")
+	return
+}
 
 // UrlAuthor Генерация URL к автору по ID
-func (obj *StructDef) UrlAuthor(idWork string, idAutor string) (url string, err error) { return }
+func (obj *StructDef) UrlAuthor(idWork string, idAutor string) (url string, err error) {
+	err = defError("UrlAuthor")
+	return
+}
 
 // UrlChapter Генерация URL к главе по ID
-func (obj *StructDef) UrlChapter(idWork string, idChapter string) (url string, err error) { return }
+func (obj *StructDef) UrlChapter(idWork string, idChapter string) (url string, err error) {
+	err = defError("UrlChapter")
+	return
+}
 
 /*##*/
 
 // Ping Проверка доступности домена
-func (obj *StructDef) Ping() (err error) { return }
+func (obj *StructDef) Ping() (err error) {
+	err = defError("Ping")
+	return
+}
 
 // PingWork Проверка доступности работы
-func (obj *StructDef) PingWork(idWork string) (err error) { return }
+func (obj *StructDef) PingWork(idWork string) (err error) {
+	err = defError("PingWork")
+	return
+}
 
 // PingChapter Проверка доступности главы
-func (obj *StructDef) PingChapter(idWork string, idChapter string) (err error) { return }
+func (obj *StructDef) PingChapter(idWork string, idChapter string) (err error) {
+	err = defError("PingChapter")
+	return
+}
 
 //
 
 // LoadWork Загрузка работы полностью по ID
-func (obj *StructDef) LoadWork(idWork string) (globalObj GlobalObj, err error) { return }
+func (obj *StructDef) LoadWork(idWork string) (globalObj GlobalObj, err error) {
+	err = defError("LoadWork")
+	return
+}
 
 // LoadWorkFromFile Загрузка работы полностью из файла.
 func (obj *StructDef) LoadWorkFromFile(fileType string, htmlText io.Reader) (globalObj GlobalObj, err error) {
+	err = defError("LoadWorkFromFile")
 	return
 }
 
 // LoadInfo Загрузка информация о работе по ID
-func (obj *StructDef) LoadInfo(idWork string) (infoObj InfoObj, err error) { return }
+func (obj *StructDef) LoadInfo(idWork string) (infoObj InfoObj, err error) {
+	err = defError("LoadInfo")
+	return
+}
 
 // LoadChapter Загрузка главы по ID
 func (obj *StructDef) LoadChapter(idWork string, idChapter string) (pageObj PageObj, err error) {
+	err = defError("LoadChapter")
 	return
 }

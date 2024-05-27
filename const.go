@@ -1,5 +1,5 @@
 package ParserInterface
 
-const GlobalVersion string = "1.5.4"
+const GlobalVersion string = "1.5.5"
 const GlobalDateUpdate string = "05-27-2024"
 const GlobalName string = "ParserInterface"

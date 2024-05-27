@@ -14,7 +14,7 @@ type BasicMethods interface {
 	GetRegExp() (regExpArr []string) // GetRegExp Получение списка регулярных выражений которыми проверятся соответствие домену
 
 	GetWork(url string) (idWork string, err error)                      // GetWork Получение ID работы из url
-	GeAuthor(url string) (idWork string, idAutor string, err error)     // GeAuthor Получение ID автора из url
+	GetAuthor(url string) (idWork string, idAutor string, err error)    // GetAuthor Получение ID автора из url
 	GetChapter(url string) (idWork string, idChapter string, err error) // GetChapter Получение ID главы из url
 
 	UrlWork(idWork string) (url string, err error)                      // UrlWork Генерация URL к произведению по ID

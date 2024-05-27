@@ -30,6 +30,6 @@ type LoadMethods interface {
 	LoadWork(idWork string) (globalObj GlobalObj, err error)                               // LoadWork Загрузка работы полностью по ID
 	LoadWorkFromFile(fileType string, htmlText io.Reader) (globalObj GlobalObj, err error) // LoadWorkFromFile Загрузка работы полностью из файла. Если домен не поддерживает скачивание файлов то должна быть заглушка с ошибкой
 
-	LoadInfo(idWork string) (infoObj InfoObj, err error)                      // LoadInfo Загрузка информация о работе по ID
-	LoadChapter(idWork string, idChapter string) (pageObj PageObj, err error) // LoadChapter Загрузка главы по ID
+	LoadInfo(idWork string) (WorkObj WorkObj, err error)                            // LoadInfo Загрузка информация о работе по ID
+	LoadChapter(idWork string, idChapter string) (ChapterObj ChapterObj, err error) // LoadChapter Загрузка главы по ID
 }

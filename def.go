@@ -155,13 +155,13 @@ func (obj *StructDef) LoadWorkFromFile(fileType string, htmlText io.Reader) (glo
 }
 
 // LoadInfo loads information about the work by its ID.
-func (obj *StructDef) LoadInfo(idWork string) (infoObj InfoObj, err error) {
+func (obj *StructDef) LoadInfo(idWork string) (WorkObj WorkObj, err error) {
 	err = defError("LoadInfo")
 	return
 }
 
 // LoadChapter loads the chapter by its ID.
-func (obj *StructDef) LoadChapter(idWork string, idChapter string) (pageObj PageObj, err error) {
+func (obj *StructDef) LoadChapter(idWork string, idChapter string) (ChapterObj ChapterObj, err error) {
 	err = defError("LoadChapter")
 	return
 }

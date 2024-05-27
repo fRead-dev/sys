@@ -3,57 +3,58 @@ package ParserInterface
 import "time"
 
 type TimestampObj struct {
-	Create time.Time `json:"create"` //Время создания.
-	Update time.Time `json:"update"` //Время последнего обновления.
+	Create time.Time `json:"create"` // creation time.
+	Update time.Time `json:"update"` // last updated time.
 }
 
 type SizeObj struct {
-	Bytes   uint64 `json:"bytes"`   //Размер в байтах
-	Letters uint64 `json:"letters"` //Количество символов без учета разметки
+	Bytes   uint64 `json:"bytes"`   // size in bytes.
+	Letters uint64 `json:"letters"` // character count excluding markup.
 }
 
 type PersonalityObj struct {
-	ID   string `json:"id"`   // Уникальный указатель в рамках домена
-	Name string `json:"name"` // Имя\название в рамках уникального указателя
+	ID   string `json:"id"`   // unique pointer within the domain.
+	Name string `json:"name"` // name/title within the unique pointer.
 }
 
 //###########################################################//
 
-// InfoObj Информация о книге
-type InfoObj struct {
-	Work   PersonalityObj `json:"work"`   // Указатель произведения
-	Author PersonalityObj `json:"author"` // Указатель автора
+// WorkObj Information about the work
+type WorkObj struct {
+	Work   PersonalityObj `json:"work"`   // Work pointer.
+	Author PersonalityObj `json:"author"` // Author pointer.
 
-	Language  string       `json:"language"`  // Язык произведения
-	Timestamp TimestampObj `json:"timestamp"` // Временные метки произведения
-	Size      SizeObj      `json:"size"`      // Размер произведения
-	Hash      string       `json:"hash"`      // Контрольная сумма произведения глобально
+	Language  string       `json:"language"`  // Work language.
+	Timestamp TimestampObj `json:"timestamp"` // Work timestamps.
+	Hash      string       `json:"hash"`      // global checksum of the Work
 
-	Tags       []string `json:"tags"`       // Указаные теги
-	Fandoms    []string `json:"fandoms"`    // Указанные фендомы
-	Characters []string `json:"characters"` // Указанные персонажи
+	Tags       []string `json:"tags"`       // specified tags
+	Fandoms    []string `json:"fandoms"`    // specified fandoms
+	Characters []string `json:"characters"` // specified characters
 
-	Status StatusTag `json:"status"` // Статус произведения
-	Rating RatingTag `json:"rating"` // Рейтинг произведения
-	Focus  FocusTag  `json:"focus"`  // Направление произведения
+	Status StatusTag `json:"status"` // status of the Work
+	Rating RatingTag `json:"rating"` // rating of the Work
+	Focus  FocusTag  `json:"focus"`  // focus of the Work
 
-	Description []byte `json:"description" compress:"true"` // Описание к произведению
+	Description []byte `json:"description" compress:"true"` // description of the Work
 }
 
-// PageObj Содержание страницы
-type PageObj struct {
-	Chapter PersonalityObj `json:"chapter"` // Указатель на главу
+// ChapterObj chapter content
+type ChapterObj struct {
+	Chapter PersonalityObj `json:"chapter"` // Chapter pointer.
 
-	Timestamp TimestampObj `json:"timestamp"` // Временные метки главы
-	Size      SizeObj      `json:"size"`      // Размер главы
-	Hash      string       `json:"hash"`      // Контрольная сумма главы
+	Timestamp TimestampObj `json:"timestamp"` // Chapter timestamps.
+	Size      SizeObj      `json:"size"`      // size of the Chapter
+	Hash      string       `json:"hash"`      // checksum of the Chapter
 
-	Data []byte `json:"data" compress:"true"` // Текст главы
+	Data []byte `json:"data" compress:"true"` // text of the Chapter
 }
 
 //###########################################################//
 
+// GlobalObj Global information object about the work
 type GlobalObj struct {
-	Info  InfoObj   `json:"info"`
-	Pages []PageObj `json:"pages"`
+	Info     WorkObj      `json:"info"`     // information about the Work
+	Size     SizeObj      `json:"size"`     // size of the Work
+	Chapters []ChapterObj `json:"chapters"` //	chapters of the Work
 }

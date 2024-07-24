@@ -13,6 +13,7 @@ func Upload() error {
 			return err
 		}
 		protectParser.load = &data
+		return nil
 	}
 
 	if IsWork() {
@@ -21,9 +22,10 @@ func Upload() error {
 			return err
 		}
 		protectParser.load = &data
+		return nil
 	}
 
-	return nil
+	return ErrGlobalNil
 }
 
 ////////
@@ -56,6 +58,38 @@ func ReadChaptersFromWork() (*[]PersonalityObj, error) {
 
 	arr, err := Methods.Parse.WorkChapters(protectParser.load)
 	return &arr, err
+}
+
+////////
+
+func ReadAuthor() (*PersonalityObj, error) {
+	if !IsInit() {
+		return nil, ErrGlobalNotInit
+	}
+	if protectParser.load == nil {
+		return nil, ErrGlobalNotLoad
+	}
+	if !IsAuthor() {
+		return nil, ErrGlobalIsNotAuthor
+	}
+
+	data, err := Methods.Parse.Author(protectParser.load)
+	return &data, err
+}
+
+func ReadWork() (*WorkObj, error) {
+	if !IsInit() {
+		return nil, ErrGlobalNotInit
+	}
+	if protectParser.load == nil {
+		return nil, ErrGlobalNotLoad
+	}
+	if !IsWork() {
+		return nil, ErrGlobalIsNotWork
+	}
+
+	data, err := Methods.Parse.Work(protectParser.load)
+	return &data, err
 }
 
 //###########################################################//

@@ -24,6 +24,7 @@ var (
 //###########################################################//
 
 var (
+	ErrGlobalNil         = errors.New("undefined error")
 	ErrGlobalNotInit     = errors.New("not init")
 	ErrGlobalIsNotAuthor = errors.New("this is not author")
 	ErrGlobalIsNotWork   = errors.New("this is not work")

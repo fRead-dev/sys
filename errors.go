@@ -24,8 +24,10 @@ var (
 //###########################################################//
 
 var (
-	ErrParseDomainNil = errors.New("method `Methods.Parse.Domain` not init")
-	ErrParseAuthorNil = errors.New("method Methods.Parse.Author` not init")
+	ErrParseDomainNil  = errors.New("method `Methods.Parse.Domain` not init")
+	ErrParseAuthorNil  = errors.New("method Methods.Parse.Author` not init")
+	ErrParseWorkNil    = errors.New("method Methods.Parse.Work` not init")
+	ErrParseChapterNil = errors.New("method Methods.Parse.Chapter` not init")
 
 	ErrNetPingNil    = errors.New("method `Methods.Net.Ping` not init")
 	ErrNetAuthorNil  = errors.New("method `Methods.Net.Author` not init")

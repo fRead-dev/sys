@@ -4,8 +4,7 @@ package ParserInterface
 
 // WorkObj Information about the work
 type WorkObj struct {
-	Work   PersonalityObj `json:"work"`   // Work pointer.
-	Author PersonalityObj `json:"author"` // Author pointer.
+	Work PersonalityObj `json:"work"` // Work pointer.
 
 	Language  LanguageType `json:"language"`  // Work language.
 	Timestamp TimestampObj `json:"timestamp"` // Work timestamps.
@@ -36,7 +35,9 @@ type ChapterObj struct {
 //###########################################################//
 
 type BookObj struct {
-	Domain   DomainType   `json:"domain"`   // хост-имя домена
+	Domain DomainType     `json:"domain"` // хост-имя домена
+	Author PersonalityObj `json:"author"` // Author pointer.
+
 	Work     WorkObj      `json:"work"`     // information about the Work
 	Size     SizeObj      `json:"size"`     // size of the Work
 	Chapters []ChapterObj `json:"chapters"` //	chapters of the Work

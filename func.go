@@ -8,7 +8,7 @@ func New(url string) error {
 		return err
 	}
 
-	protectParser = &ParserObj{domain: domain}
+	//protectParser = &ParserObj{domain: domain}
 
 	return nil
 }

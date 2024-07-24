@@ -27,6 +27,7 @@ var (
 	ErrGlobalNotInit     = errors.New("not init")
 	ErrGlobalIsNotAuthor = errors.New("this is not author")
 	ErrGlobalIsNotWork   = errors.New("this is not work")
+	ErrGlobalNotLoad     = errors.New("data not loaded")
 )
 
 //###########################################################//

@@ -2,26 +2,60 @@ package ParserInterface
 
 //###########################################################//
 
-func LoadWorksFromAuthor() (*[]PersonalityObj, error) {
+func Upload() error {
+	if !IsInit() {
+		return ErrGlobalNotInit
+	}
+
+	if IsAuthor() {
+		data, err := Methods.Net.Author(protectParser.domain, protectParser.author.UID)
+		if err != nil {
+			return err
+		}
+		protectParser.load = &data
+	}
+
+	if IsWork() {
+		data, err := Methods.Net.Work(protectParser.domain, protectParser.work.UID)
+		if err != nil {
+			return err
+		}
+		protectParser.load = &data
+	}
+
+	return nil
+}
+
+////////
+
+func ReadWorksFromAuthor() (*[]PersonalityObj, error) {
 	if !IsInit() {
 		return nil, ErrGlobalNotInit
+	}
+	if protectParser.load == nil {
+		return nil, ErrGlobalNotLoad
 	}
 	if !IsAuthor() {
 		return nil, ErrGlobalIsNotAuthor
 	}
 
-	arr, err := Methods.Net.AuthorWorksData(protectParser.domain, protectParser.author.UID)
+	arr, err := Methods.Parse.WorkChapters(protectParser.load)
 	return &arr, err
 }
 
-func LoadChapterFromWork() (*[]PersonalityObj, error) {
+func ReadChaptersFromWork() (*[]PersonalityObj, error) {
 	if !IsInit() {
 		return nil, ErrGlobalNotInit
 	}
+	if protectParser.load == nil {
+		return nil, ErrGlobalNotLoad
+	}
 	if !IsWork() {
-		return nil, ErrGlobalIsNotAuthor
+		return nil, ErrGlobalIsNotWork
 	}
 
-	arr, err := Methods.Net.AuthorWorksData(protectParser.domain, protectParser.work.UID)
+	arr, err := Methods.Parse.WorkChapters(protectParser.load)
 	return &arr, err
 }
+
+//###########################################################//

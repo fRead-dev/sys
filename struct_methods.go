@@ -6,6 +6,8 @@ type ParserObj struct {
 	domain DomainType
 	work   *PersonalityObj
 	author *PersonalityObj
+
+	load *LoadWebDataType
 }
 
 //###########################################################//

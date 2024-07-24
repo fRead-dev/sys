@@ -24,6 +24,14 @@ var (
 //###########################################################//
 
 var (
+	ErrGlobalNotInit     = errors.New("not init")
+	ErrGlobalIsNotAuthor = errors.New("this is not author")
+	ErrGlobalIsNotWork   = errors.New("this is not work")
+)
+
+//###########################################################//
+
+var (
 	ErrParseUrlDomainNil  = errors.New("method `Methods.Parse.URL.Domain` not init")
 	ErrParseUrlAuthorNil  = errors.New("method `Methods.Parse.URL.Author` not init")
 	ErrParseUrlWorkNil    = errors.New("method `Methods.Parse.URL.Work` not init")
@@ -32,6 +40,9 @@ var (
 	ErrParseAuthorNil  = errors.New("method Methods.Parse.Author` not init")
 	ErrParseWorkNil    = errors.New("method Methods.Parse.Work` not init")
 	ErrParseChapterNil = errors.New("method Methods.Parse.Chapter` not init")
+
+	ErrParseAuthorWorksNil  = errors.New("method Methods.Parse.AuthorWorks` not init")
+	ErrParseWorkChaptersNil = errors.New("method Methods.Parse.WorkChapters` not init")
 )
 
 var (

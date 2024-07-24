@@ -27,26 +27,30 @@ func New(url string) error {
 	return nil
 }
 
+func Close() {
+	if protectParser != nil {
+		protectParser = nil
+	}
+}
+
+////
+
 func IsInit() bool {
 	return protectParser != nil
 }
+
 func IsAuthor() bool {
 	if protectParser == nil {
 		return false
 	}
 	return protectParser.author != nil
 }
+
 func IsWork() bool {
 	if protectParser == nil {
 		return false
 	}
 	return protectParser.work != nil
-}
-
-func Close() {
-	if protectParser != nil {
-		protectParser = nil
-	}
 }
 
 //###########################################################//

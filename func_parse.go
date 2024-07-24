@@ -31,3 +31,13 @@ func parseWorkFromData(data *LoadWebDataType) (WorkObj, error) {
 func parseChapterFromData(data *LoadWebDataType) (ChapterObj, error) {
 	return ChapterObj{}, ErrParseChapterNil
 }
+
+////
+
+func parseWorkFromAuthorData(data *LoadWebDataType) ([]PersonalityObj, error) {
+	return []PersonalityObj{}, ErrParseAuthorWorksNil
+}
+
+func parseChapterFromWorkData(data *LoadWebDataType) ([]PersonalityObj, error) {
+	return []PersonalityObj{}, ErrParseWorkChaptersNil
+}

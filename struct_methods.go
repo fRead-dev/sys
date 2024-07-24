@@ -29,6 +29,9 @@ type MethodsParseObject struct {
 	Author  func(data *LoadWebDataType) (PersonalityObj, error)
 	Work    func(data *LoadWebDataType) (WorkObj, error)
 	Chapter func(data *LoadWebDataType) (ChapterObj, error)
+
+	AuthorWorks  func(data *LoadWebDataType) ([]PersonalityObj, error)
+	WorkChapters func(data *LoadWebDataType) ([]PersonalityObj, error)
 }
 
 type MethodsParseUrlObject struct {
@@ -73,6 +76,9 @@ func init() {
 		Methods.Parse.Author = parseAuthorFromData
 		Methods.Parse.Work = parseWorkFromData
 		Methods.Parse.Chapter = parseChapterFromData
+
+		Methods.Parse.AuthorWorks = parseWorkFromAuthorData
+		Methods.Parse.WorkChapters = parseChapterFromWorkData
 	}
 	{
 		Methods.Net.Ping = netPing

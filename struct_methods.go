@@ -26,9 +26,9 @@ type MethodsSysObject struct {
 type MethodsParseObject struct {
 	Domain func(url string) (DomainType, error)
 
-	Author  func(data *[]LoadWebDataType) (PersonalityObj, error)
-	Work    func(data *[]LoadWebDataType) (WorkObj, error)
-	Chapter func(data *[]LoadWebDataType) (ChapterObj, error)
+	Author  func(data *LoadWebDataType) (PersonalityObj, error)
+	Work    func(data *LoadWebDataType) (WorkObj, error)
+	Chapter func(data *LoadWebDataType) (ChapterObj, error)
 }
 
 ////////
@@ -36,9 +36,9 @@ type MethodsParseObject struct {
 type MethodsNetObject struct {
 	Ping func(url string) error
 
-	Author  func(domain DomainType, author UIDType) (*[]LoadWebDataType, error)
-	Work    func(domain DomainType, work UIDType) (*[]LoadWebDataType, error)
-	Chapter func(domain DomainType, work UIDType, chapter UIDType) (*[]LoadWebDataType, error)
+	Author  func(domain DomainType, author UIDType) (LoadWebDataType, error)
+	Work    func(domain DomainType, work UIDType) (LoadWebDataType, error)
+	Chapter func(domain DomainType, work UIDType, chapter UIDType) (LoadWebDataType, error)
 }
 
 ////////

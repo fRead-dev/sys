@@ -8,14 +8,14 @@ func parseDomainFromUrl(url string) (DomainType, error) {
 
 //////////
 
-func parseAuthorFromData(data *[]LoadWebDataType) (PersonalityObj, error) {
+func parseAuthorFromData(data *LoadWebDataType) (PersonalityObj, error) {
 	return PersonalityObj{}, ErrParseAuthorNil
 }
 
-func parseWorkFromData(data *[]LoadWebDataType) (WorkObj, error) {
+func parseWorkFromData(data *LoadWebDataType) (WorkObj, error) {
 	return WorkObj{}, ErrParseWorkNil
 }
 
-func parseChapterFromData(data *[]LoadWebDataType) (ChapterObj, error) {
+func parseChapterFromData(data *LoadWebDataType) (ChapterObj, error) {
 	return ChapterObj{}, ErrParseChapterNil
 }

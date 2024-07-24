@@ -6,7 +6,7 @@ func netPing(url string) error {
 	return ErrNetPingNil
 }
 
-func netLoadAuthor(domain DomainType, author UIDType) (*[]LoadWebDataType, error) {
+func netLoadAuthor(domain DomainType, author UIDType) (LoadWebDataType, error) {
 	return nil, ErrNetAuthorNil
 }
 func (net *MethodsNetObject) AuthorData(domain DomainType, author UIDType) (PersonalityObj, error) {
@@ -14,10 +14,10 @@ func (net *MethodsNetObject) AuthorData(domain DomainType, author UIDType) (Pers
 	if err != nil {
 		return PersonalityObj{}, err
 	}
-	return Methods.Parse.Author(data)
+	return Methods.Parse.Author(&data)
 }
 
-func netLoadWork(domain DomainType, work UIDType) (*[]LoadWebDataType, error) {
+func netLoadWork(domain DomainType, work UIDType) (LoadWebDataType, error) {
 	return nil, ErrNetWorkNil
 }
 func (net *MethodsNetObject) WorkData(domain DomainType, work UIDType) (WorkObj, error) {
@@ -25,10 +25,10 @@ func (net *MethodsNetObject) WorkData(domain DomainType, work UIDType) (WorkObj,
 	if err != nil {
 		return WorkObj{}, err
 	}
-	return Methods.Parse.Work(data)
+	return Methods.Parse.Work(&data)
 }
 
-func netLoadChapter(domain DomainType, work UIDType, chapter UIDType) (*[]LoadWebDataType, error) {
+func netLoadChapter(domain DomainType, work UIDType, chapter UIDType) (LoadWebDataType, error) {
 	return nil, ErrNetChapterNil
 }
 func (net *MethodsNetObject) ChapterData(domain DomainType, work UIDType, chapter UIDType) (ChapterObj, error) {
@@ -36,7 +36,7 @@ func (net *MethodsNetObject) ChapterData(domain DomainType, work UIDType, chapte
 	if err != nil {
 		return ChapterObj{}, err
 	}
-	return Methods.Parse.Chapter(data)
+	return Methods.Parse.Chapter(&data)
 }
 
 //###########################################################//

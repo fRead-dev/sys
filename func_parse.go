@@ -41,3 +41,65 @@ func parseWorkFromAuthorData(data *LoadWebDataType) ([]PersonalityObj, error) {
 func parseChapterFromWorkData(data *LoadWebDataType) ([]PersonalityObj, error) {
 	return []PersonalityObj{}, ErrParseWorkChaptersNil
 }
+
+//////////
+
+func parseFieldChapterPersonalityFromData(data *LoadWebDataType) (PersonalityObj, error) {
+	return PersonalityObj{}, ErrParseFieldChapterPersonalityNil
+}
+
+func parseFieldChapterTimestampFromData(data *LoadWebDataType) (TimestampObj, error) {
+	return TimestampObj{}, ErrParseFieldChapterTimestampNil
+}
+
+func parseFieldChapterDataFromData(data *LoadWebDataType) ([]byte, error) {
+	return []byte{}, ErrParseFieldChapterDataNil
+}
+
+////
+
+func parseFieldWorkPersonalityFromData(data *LoadWebDataType) (PersonalityObj, error) {
+	return PersonalityObj{}, ErrParseFieldWorkPersonalityNil
+}
+
+func parseFieldWorkLanguageFromData(data *LoadWebDataType) (LanguageType, error) {
+	return "", ErrParseFieldWorkLanguageNil
+}
+
+func parseFieldWorkTimestampFromData(data *LoadWebDataType) (TimestampObj, error) {
+	return TimestampObj{}, ErrParseFieldWorkTimestampNil
+}
+
+//
+
+func parseFieldWorkTagsFromData(data *LoadWebDataType) ([]TagType, error) {
+	return []TagType{}, ErrParseFieldWorkTagsNil
+}
+
+func parseFieldWorkFandomsFromData(data *LoadWebDataType) ([]FandomType, error) {
+	return []FandomType{}, ErrParseFieldWorkFandomsNil
+}
+
+func parseFieldWorkPersonagesFromData(data *LoadWebDataType) ([]PersonType, error) {
+	return []PersonType{}, ErrParseFieldWorkPersonagesNil
+}
+
+//
+
+func parseFieldWorkStatusFromData(data *LoadWebDataType) (StatusTag, error) {
+	return 0, ErrParseFieldWorkStatusNil
+}
+
+func parseFieldWorkRatingFromData(data *LoadWebDataType) (RatingTag, error) {
+	return 0, ErrParseFieldWorkRatingNil
+}
+
+func parseFieldWorkFocusFromData(data *LoadWebDataType) (FocusTag, error) {
+	return 0, ErrParseFieldWorkFocusNil
+}
+
+//
+
+func parseFieldWorkDescriptionFromData(data *LoadWebDataType) ([]byte, error) {
+	return []byte{}, ErrParseFieldWorkDescriptionNil
+}

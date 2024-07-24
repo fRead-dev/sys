@@ -45,6 +45,21 @@ var (
 
 	ErrParseAuthorWorksNil  = errors.New("method Methods.Parse.AuthorWorks` not init")
 	ErrParseWorkChaptersNil = errors.New("method Methods.Parse.WorkChapters` not init")
+
+	ErrParseFieldChapterPersonalityNil = errors.New("method Methods.Parse.Field.Chapter.Personality ` not init")
+	ErrParseFieldChapterTimestampNil   = errors.New("method Methods.Parse.Field.Chapter.Timestamp ` not init")
+	ErrParseFieldChapterDataNil        = errors.New("method Methods.Parse.Field.Chapter.Data ` not init")
+
+	ErrParseFieldWorkPersonalityNil = errors.New("method Methods.Parse.Field.Work.Personality ` not init")
+	ErrParseFieldWorkTimestampNil   = errors.New("method Methods.Parse.Field.Work.Timestamp ` not init")
+	ErrParseFieldWorkLanguageNil    = errors.New("method Methods.Parse.Field.Work.Language ` not init")
+	ErrParseFieldWorkTagsNil        = errors.New("method Methods.Parse.Field.Work.Tags ` not init")
+	ErrParseFieldWorkFandomsNil     = errors.New("method Methods.Parse.Field.Work.Fandoms ` not init")
+	ErrParseFieldWorkPersonagesNil  = errors.New("method Methods.Parse.Field.Work.Personages ` not init")
+	ErrParseFieldWorkStatusNil      = errors.New("method Methods.Parse.Field.Work.Status ` not init")
+	ErrParseFieldWorkRatingNil      = errors.New("method Methods.Parse.Field.Work.Rating ` not init")
+	ErrParseFieldWorkFocusNil       = errors.New("method Methods.Parse.Field.Work.Focus ` not init")
+	ErrParseFieldWorkDescriptionNil = errors.New("method Methods.Parse.Field.Work.Description ` not init")
 )
 
 var (

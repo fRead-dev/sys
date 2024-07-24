@@ -20,13 +20,13 @@ type MethodsObject struct {
 	Gen   MethodsGenObject
 }
 
-type MethodsSysObject struct {
-}
+type MethodsSysObject struct{}
 
 ////////////
 
 type MethodsParseObject struct {
-	URL MethodsParseUrlObject
+	URL   MethodsParseUrlObject
+	Field MethodsParseFieldObject
 
 	Author  func(data *LoadWebDataType) (PersonalityObj, error)
 	Work    func(data *LoadWebDataType) (WorkObj, error)
@@ -41,6 +41,32 @@ type MethodsParseUrlObject struct {
 	Author  func(url string) (UIDType, error)
 	Work    func(url string) (UIDType, error)
 	Chapter func(url string) (UIDType, error)
+}
+type MethodsParseFieldObject struct {
+	Work    MethodsParseFieldWorkObject
+	Chapter MethodsParseFieldChapterObject
+}
+
+type MethodsParseFieldWorkObject struct {
+	Personality func(data *LoadWebDataType) (PersonalityObj, error)
+	Timestamp   func(data *LoadWebDataType) (TimestampObj, error)
+	Language    func(data *LoadWebDataType) (LanguageType, error)
+
+	Tags       func(data *LoadWebDataType) ([]TagType, error)
+	Fandoms    func(data *LoadWebDataType) ([]FandomType, error)
+	Personages func(data *LoadWebDataType) ([]PersonType, error)
+
+	Status func(data *LoadWebDataType) (StatusTag, error)
+	Rating func(data *LoadWebDataType) (RatingTag, error)
+	Focus  func(data *LoadWebDataType) (FocusTag, error)
+
+	Description func(data *LoadWebDataType) ([]byte, error)
+}
+
+type MethodsParseFieldChapterObject struct {
+	Personality func(data *LoadWebDataType) (PersonalityObj, error)
+	Timestamp   func(data *LoadWebDataType) (TimestampObj, error)
+	Data        func(data *LoadWebDataType) ([]byte, error)
 }
 
 ////////
@@ -81,6 +107,21 @@ func init() {
 
 		Methods.Parse.AuthorWorks = parseWorkFromAuthorData
 		Methods.Parse.WorkChapters = parseChapterFromWorkData
+
+		Methods.Parse.Field.Chapter.Personality = parseFieldChapterPersonalityFromData
+		Methods.Parse.Field.Chapter.Timestamp = parseFieldChapterTimestampFromData
+		Methods.Parse.Field.Chapter.Data = parseFieldChapterDataFromData
+
+		Methods.Parse.Field.Work.Personality = parseFieldWorkPersonalityFromData
+		Methods.Parse.Field.Work.Timestamp = parseFieldWorkTimestampFromData
+		Methods.Parse.Field.Work.Language = parseFieldWorkLanguageFromData
+		Methods.Parse.Field.Work.Tags = parseFieldWorkTagsFromData
+		Methods.Parse.Field.Work.Fandoms = parseFieldWorkFandomsFromData
+		Methods.Parse.Field.Work.Personages = parseFieldWorkPersonagesFromData
+		Methods.Parse.Field.Work.Status = parseFieldWorkStatusFromData
+		Methods.Parse.Field.Work.Rating = parseFieldWorkRatingFromData
+		Methods.Parse.Field.Work.Focus = parseFieldWorkFocusFromData
+		Methods.Parse.Field.Work.Description = parseFieldWorkDescriptionFromData
 	}
 	{
 		Methods.Net.Ping = netPing

@@ -11,9 +11,14 @@ type ParserObj struct {
 //###########################################################//
 
 type MethodsObject struct {
+	SYS MethodsSysObject
+
 	Parse MethodsParseObject
 	Net   MethodsNetObject
 	Gen   MethodsGenObject
+}
+
+type MethodsSysObject struct {
 }
 
 ////////////

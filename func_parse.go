@@ -52,7 +52,7 @@ func parseFieldChapterTimestampFromData(data *LoadWebDataType) (TimestampObj, er
 	return TimestampObj{}, ErrParseFieldChapterTimestampNil
 }
 
-func parseFieldChapterDataFromData(data *LoadWebDataType) ([]byte, error) {
+func parseFieldChapterDataFromData(data *LoadWebDataType) (NormalisedTextType, error) {
 	return []byte{}, ErrParseFieldChapterDataNil
 }
 
@@ -100,6 +100,6 @@ func parseFieldWorkFocusFromData(data *LoadWebDataType) (FocusTag, error) {
 
 //
 
-func parseFieldWorkDescriptionFromData(data *LoadWebDataType) ([]byte, error) {
+func parseFieldWorkDescriptionFromData(data *LoadWebDataType) (NormalisedTextType, error) {
 	return []byte{}, ErrParseFieldWorkDescriptionNil
 }

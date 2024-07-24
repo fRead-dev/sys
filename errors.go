@@ -68,3 +68,8 @@ var (
 	ErrNetWorkNil    = errors.New("method `Methods.Net.Work` not init")
 	ErrNetChapterNil = errors.New("method `Methods.Net.Chapter` not init")
 )
+
+var (
+	ErrGenTextLettersNil    = errors.New("method `Methods.Gen.Text.Letters` not init")
+	ErrGenTextNormalisedNil = errors.New("method `Methods.Gen.Text.Normalised` not init")
+)

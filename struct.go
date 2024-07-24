@@ -36,5 +36,6 @@ type FandomType string
 type PersonType string
 
 type LoadWebDataType []byte
+type NormalisedTextType []byte
 
 //###########################################################//

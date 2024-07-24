@@ -18,7 +18,7 @@ type WorkObj struct {
 	Rating RatingTag `json:"rating"` // rating of the Work
 	Focus  FocusTag  `json:"focus"`  // focus of the Work
 
-	Description []byte `json:"description" compress:"true"` // description of the Work
+	Description NormalisedTextType `json:"description"` // description of the Work
 }
 
 // ChapterObj chapter content
@@ -29,7 +29,7 @@ type ChapterObj struct {
 	Size      SizeObj      `json:"size"`      // size of the Chapter
 	Hash      HashType     `json:"hash"`      // checksum of the Chapter
 
-	Data []byte `json:"data" compress:"true"` // text of the Chapter
+	Data NormalisedTextType `json:"data"` // text of the Chapter
 }
 
 //###########################################################//

@@ -60,13 +60,13 @@ type MethodsParseFieldWorkObject struct {
 	Rating func(data *LoadWebDataType) (RatingTag, error)
 	Focus  func(data *LoadWebDataType) (FocusTag, error)
 
-	Description func(data *LoadWebDataType) ([]byte, error)
+	Description func(data *LoadWebDataType) (NormalisedTextType, error)
 }
 
 type MethodsParseFieldChapterObject struct {
 	Personality func(data *LoadWebDataType) (PersonalityObj, error)
 	Timestamp   func(data *LoadWebDataType) (TimestampObj, error)
-	Data        func(data *LoadWebDataType) ([]byte, error)
+	Data        func(data *LoadWebDataType) (NormalisedTextType, error)
 }
 
 ////////
@@ -82,7 +82,8 @@ type MethodsNetObject struct {
 ////////
 
 type MethodsGenObject struct {
-	URL MethodsGenUrlObject
+	URL  MethodsGenUrlObject
+	Text MethodsGenTextObject
 }
 
 type MethodsGenUrlObject struct {
@@ -90,6 +91,11 @@ type MethodsGenUrlObject struct {
 	Author  func(domain DomainType, author UIDType) string
 	Work    func(domain DomainType, work UIDType) string
 	Chapter func(domain DomainType, work UIDType, chapter UIDType) string
+}
+
+type MethodsGenTextObject struct {
+	Normalised func(data LoadWebDataType) (NormalisedTextType, error)
+	Letters    func(data *NormalisedTextType) (uint64, error)
 }
 
 //###########################################################//
@@ -135,5 +141,8 @@ func init() {
 		Methods.Gen.URL.Author = genUrlAuthor
 		Methods.Gen.URL.Work = genUrlWork
 		Methods.Gen.URL.Chapter = genUrlWorkChapter
+
+		Methods.Gen.Text.Letters = genLettersSum
+		Methods.Gen.Text.Normalised = genNormalisedText
 	}
 }

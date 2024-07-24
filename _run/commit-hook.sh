@@ -1,33 +1,18 @@
-#!/bin/sh
+#!/bin/bash
+# Original source: https://github.com/Bookshelf-Writer/scripts-for-integration/blob/main/_run/commit-hook.sh
+echo "[HOOK]" "Commit"
 
-fileConst="$PWD/const.go"
-dateNow=$(date +"%m-%d-%Y")
-appName=$(cat "_run/build-name")
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_dir="$script_dir/scripts"
 
-##################################################################################
-majorVer=$(cat "_run/major-ver")
-minorVer=$(cat "_run/minor-ver")
-buildVer=$(cat "_run/build-ver")
+VERSION=$(bash "$script_dir/sys.sh" -v)
+NAME=$(bash "$script_dir/git.sh" -b)
 
-VERSION="$majorVer.$minorVer.$buildVer"
+echo -e "$NAME [$VERSION] \n" $(cat "$1") > "$1"
+#############################################################################
 
-NAME=$(git branch | grep '*')
-echo "$NAME [$VERSION]" ': ' $(cat "$1") > "$1"
+#Your code
 
-###################################
-
-echo "package $appName" > "$fileConst"
-echo "" >> "$fileConst"
-
-echo "" >> "$fileConst"
-echo "const GlobalVersion string = \"$VERSION\"" >> "$fileConst"
-echo "const GlobalDateUpdate string = \"$dateNow\"" >> "$fileConst"
-echo "const GlobalName string = \"$appName\"" >> "$fileConst"
-
-
-#Запись инкремента версии сборки
-buildVer=$((buildVer + 1))
-echo "$buildVer" > "_run/build-ver"
-
+#############################################################################
 exit 0
 

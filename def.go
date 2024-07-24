@@ -140,13 +140,13 @@ func PingChapter(idWork string, idChapter string) (err error) {
 //
 
 // LoadWork loads the entire work by its ID.
-func LoadWork(idWork string) (globalObj GlobalObj, err error) {
+func LoadWork(idWork string) (globalObj any, err error) {
 	err = defError("LoadWork")
 	return
 }
 
 // LoadWorkFromFile loads the entire work from a file.
-func LoadWorkFromFile(fileType string, htmlText io.Reader) (globalObj GlobalObj, err error) {
+func LoadWorkFromFile(fileType string, htmlText io.Reader) (globalObj any, err error) {
 	err = defError("LoadWorkFromFile")
 	return
 }

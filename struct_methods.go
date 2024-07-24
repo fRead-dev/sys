@@ -4,8 +4,8 @@ package ParserInterface
 
 type ParserObj struct {
 	domain DomainType
-	work   PersonalityObj
-	author PersonalityObj
+	work   *PersonalityObj
+	author *PersonalityObj
 }
 
 //###########################################################//
@@ -24,11 +24,18 @@ type MethodsSysObject struct {
 ////////////
 
 type MethodsParseObject struct {
-	Domain func(url string) (DomainType, error)
+	URL MethodsParseUrlObject
 
 	Author  func(data *LoadWebDataType) (PersonalityObj, error)
 	Work    func(data *LoadWebDataType) (WorkObj, error)
 	Chapter func(data *LoadWebDataType) (ChapterObj, error)
+}
+
+type MethodsParseUrlObject struct {
+	Domain  func(url string) (DomainType, error)
+	Author  func(url string) (UIDType, error)
+	Work    func(url string) (UIDType, error)
+	Chapter func(url string) (UIDType, error)
 }
 
 ////////
@@ -58,7 +65,10 @@ type MethodsGenUrlObject struct {
 
 func init() {
 	{
-		Methods.Parse.Domain = parseDomainFromUrl
+		Methods.Parse.URL.Domain = parseDomainFromUrl
+		Methods.Parse.URL.Author = parseAuthorFromUrl
+		Methods.Parse.URL.Work = parseWorkFromUrl
+		Methods.Parse.URL.Chapter = parseChapterFromUrl
 
 		Methods.Parse.Author = parseAuthorFromData
 		Methods.Parse.Work = parseWorkFromData

@@ -3,7 +3,19 @@ package ParserInterface
 //###########################################################//
 
 func parseDomainFromUrl(url string) (DomainType, error) {
-	return "", ErrParseDomainNil
+	return "", ErrParseUrlDomainNil
+}
+
+func parseAuthorFromUrl(url string) (UIDType, error) {
+	return "", ErrParseUrlAuthorNil
+}
+
+func parseWorkFromUrl(url string) (UIDType, error) {
+	return "", ErrParseUrlWorkNil
+}
+
+func parseChapterFromUrl(url string) (UIDType, error) {
+	return "", ErrParseUrlChapterNil
 }
 
 //////////

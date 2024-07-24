@@ -26,7 +26,10 @@ type MethodsParseObject struct {
 ////////
 
 type MethodsNetObject struct {
-	Ping func(url string) error
+	Ping    func(url string) error
+	Author  func(domain DomainType, author UIDType) (*[]LoadWebDataType, error)
+	Work    func(domain DomainType, work UIDType) (*[]LoadWebDataType, error)
+	Chapter func(domain DomainType, work UIDType, chapter UIDType) (*[]LoadWebDataType, error)
 }
 
 ////////
@@ -49,6 +52,9 @@ func init() {
 	Methods.Parse.Author = parseAuthorFromData
 
 	Methods.Net.Ping = netPing
+	Methods.Net.Author = netLoadAuthor
+	Methods.Net.Work = netLoadWork
+	Methods.Net.Chapter = netLoadChapter
 
 	Methods.Gen.URL.Domain = genUrlDomain
 	Methods.Gen.URL.Author = genUrlAuthor

@@ -6,12 +6,16 @@ func netPing(url string) error {
 	return ErrNetPingNil
 }
 
-func netLoadContent(url string) (*[]LoadWebDataType, error) {
-	return nil, ErrNetLoadNil
+func netLoadAuthor(domain DomainType, author UIDType) (*[]LoadWebDataType, error) {
+	return nil, ErrNetAuthorNil
+}
+
+func netLoadWork(domain DomainType, work UIDType) (*[]LoadWebDataType, error) {
+	return nil, ErrNetWorkNil
+}
+
+func netLoadChapter(domain DomainType, work UIDType, chapter UIDType) (*[]LoadWebDataType, error) {
+	return nil, ErrNetChapterNil
 }
 
 //###########################################################//
-
-func (net *MethodsNetObject) Author(domain DomainType, author UIDType) (*[]LoadWebDataType, error) {
-	return nil, nil
-}

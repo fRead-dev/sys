@@ -2,7 +2,6 @@ package chapter
 
 import (
 	fReadSYS "github.com/fRead-dev/sys"
-	fReadBuffer "github.com/fRead-dev/sys/data/buffer"
 )
 
 //###########################################################//
@@ -12,7 +11,7 @@ type ChapterObj struct {
 	Size  fReadSYS.SizesObj
 	Check fReadSYS.IntegrityChecksObj
 
-	Data *fReadBuffer.BufferObj
+	Chapter fReadSYS.DataObj
 }
 
 type ChapterChunksObj struct {
@@ -20,5 +19,5 @@ type ChapterChunksObj struct {
 	Size  fReadSYS.SizesObj
 	Check fReadSYS.IntegrityChecksObj
 
-	Chunks []*fReadBuffer.BufferObj
+	Chunks []fReadSYS.DataObj
 }

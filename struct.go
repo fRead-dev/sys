@@ -18,3 +18,8 @@ type IntegrityChecksObj struct {
 	Sign string // Подпись объекта, формируются из хешей и домена
 	Hash string // Хеш-сумма объекта для проверки целостности
 }
+
+type DataObj struct {
+	IsCompress bool
+	Data       []byte
+}

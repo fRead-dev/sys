@@ -1,41 +1,41 @@
 package chapter
 
 import (
-	fReadBuffer "github.com/fRead-dev/sys/data/buffer"
-	"io"
-
-	fReadText "github.com/fRead-dev/sys/data/text"
+	"bytes"
+	fReadCompress "github.com/fRead-dev/sys/data/compress"
 )
 
 //###########################################################//
 
-func DataToChapter(input io.Reader) *ChapterObj {
-	obj := ChapterObj{}
+func (chapter *ChapterObj) Chunks() (*ChapterChunksObj, error) {
+	obj := &ChapterChunksObj{}
+	data := new(bytes.Buffer)
 
-	obj.Size.Letters = fReadText.CountLetters(input)
-	obj.Size.Bytes = fReadText.CountBytes(input)
+	obj.Time = chapter.Time
+	obj.Size = chapter.Size
+	obj.Check = chapter.Check
 
-	obj.Data = fReadBuffer.New()
-	obj.Data.Write(input)
+	if chapter.Chapter.IsCompress {
+		compressedReader := bytes.NewReader(chapter.Chapter.Data)
+		err := fReadCompress.Decode(compressedReader, data)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		data.Write(chapter.Chapter.Data)
+	}
 
-	return &obj
-}
-
-func DataToChunks(input io.Reader) (*ChapterChunksObj, error) {
-	chapter, err := DataToChapter(input)
+	chunks, err := chapter.Chapter.Chunks()
 	if err != nil {
 		return nil, err
 	}
 
-	return chapter.Chunks(), nil
-}
-
-/////////////////////
-
-func (chapter *ChapterObj) Chunks() *ChapterChunksObj {
-	return nil
+	obj.Chunks = chunks
+	return obj, nil
 }
 
 func (chunks *ChapterChunksObj) Chapter() *ChapterObj {
-	return nil
+	obj := &ChapterObj{}
+
+	return obj
 }

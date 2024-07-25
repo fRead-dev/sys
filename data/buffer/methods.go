@@ -49,7 +49,7 @@ func (obj *BufferObj) Read() ([]byte, error) {
 
 ////
 
-func (obj *BufferObj) Bytes() uint64 {
+func (obj *BufferObj) Bytes() int {
 	if obj.bufData != nil {
 		return 0
 	}
@@ -57,10 +57,10 @@ func (obj *BufferObj) Bytes() uint64 {
 		return 0
 	}
 
-	return uint64(len(*obj.uploadData))
+	return len(*obj.uploadData)
 }
 
-func (obj *BufferObj) Letters() uint64 {
+func (obj *BufferObj) Letters() int {
 	if obj.bufData != nil {
 		return 0
 	}
@@ -70,7 +70,7 @@ func (obj *BufferObj) Letters() uint64 {
 
 	buf := bytes.NewBuffer(*obj.uploadData)
 	re := regexp.MustCompile(`^[a-zA-Z]$`)
-	var count uint64
+	var count int
 
 	for {
 		char, _, err := buf.ReadRune()

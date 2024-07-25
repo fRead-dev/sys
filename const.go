@@ -1,4 +1,4 @@
-package ParserInterface
+package sys
 
 const (
 	GlobalName       string = "fReadSYS"

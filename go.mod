@@ -1,4 +1,4 @@
-module github.com/fRead-dev/ParserInterface
+module github.com/fRead-dev/sys
 
 go 1.21
 

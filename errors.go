@@ -1,4 +1,4 @@
-package ParserInterface
+package sys
 
 import "errors"
 

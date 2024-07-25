@@ -83,3 +83,31 @@ func (data *DataObj) Chunks() ([]DataObj, error) {
 
 	return arr, nil
 }
+
+func ChunksToData(chunks []DataObj) (*DataObj, error) {
+	var dataBuf bytes.Buffer
+	isCompress := false
+
+	for _, chunk := range chunks {
+		if chunk.IsCompress {
+			isCompress = true
+			data, err := chunk.Decompress()
+			if err != nil {
+				return nil, err
+			}
+			dataBuf.Write(data.Data)
+		} else {
+			dataBuf.Write(chunk.Data)
+		}
+	}
+
+	obj := &DataObj{Data: dataBuf.Bytes()}
+	if isCompress {
+		data, err := obj.Decompress()
+		if err != nil {
+			return nil, err
+		}
+		return data, nil
+	}
+	return obj, nil
+}

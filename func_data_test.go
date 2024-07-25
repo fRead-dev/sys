@@ -75,20 +75,52 @@ func TestChunks(t *testing.T) {
 	}
 }
 
+func TestChunksToData(t *testing.T) {
+	// Подготовка данных для теста
+	data1 := &DataObj{
+		IsCompress: false,
+		Data:       []byte("chunk1 "),
+	}
+	data2 := &DataObj{
+		IsCompress: false,
+		Data:       []byte("chunk2 "),
+	}
+	data3 := &DataObj{
+		IsCompress: false,
+		Data:       []byte("compressed chunk"), // Используйте корректные сжатые данные для вашего случая
+	}
+
+	// Создание объектов с данными
+	chunks := []DataObj{*data1, *data2, *data3}
+
+	// Запуск функции
+	combinedData, err := ChunksToData(chunks)
+	if err != nil {
+		t.Fatalf("Failed to combine chunks: %v", err)
+	}
+
+	// Ожидаемые данные
+	expectedData := []byte("chunk1 chunk2 compressed chunk") // Обновите в зависимости от того, что возвращает Decompress
+
+	// Проверка результатов
+	if !bytes.Equal(combinedData.Data, expectedData) {
+		t.Errorf("Combined data does not match expected data. Got %s, want %s", combinedData.Data, expectedData)
+	}
+}
+
 func BenchmarkCompress(b *testing.B) {
 	data := &DataObj{
 		IsCompress: false,
 		Data:       []byte("test data for compression"),
 	}
 
-	b.StartTimer()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_, err := data.Compress()
 		if err != nil {
 			b.Fatalf("Failed to compress data: %v", err)
 		}
 	}
-	b.StopTimer()
 }
 
 func BenchmarkDecompress(b *testing.B) {
@@ -101,14 +133,13 @@ func BenchmarkDecompress(b *testing.B) {
 		b.Fatalf("Failed to compress data: %v", err)
 	}
 
-	b.StartTimer()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_, err := compressedData.Decompress()
 		if err != nil {
 			b.Fatalf("Failed to decompress data: %v", err)
 		}
 	}
-	b.StopTimer()
 }
 
 func BenchmarkChunks(b *testing.B) {
@@ -121,6 +152,25 @@ func BenchmarkChunks(b *testing.B) {
 		_, err := data.Chunks()
 		if err != nil {
 			b.Fatalf("Failed to get chunks: %v", err)
+		}
+	}
+}
+
+func BenchmarkChunksToData(b *testing.B) {
+	var chunks []DataObj
+	for i := 0; i < 100; i++ {
+		data := &DataObj{
+			IsCompress: false,
+			Data:       []byte("test chunk data "),
+		}
+		chunks = append(chunks, *data)
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_, err := ChunksToData(chunks)
+		if err != nil {
+			b.Fatalf("Failed to combine chunks: %v", err)
 		}
 	}
 }

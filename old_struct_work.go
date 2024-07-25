@@ -7,7 +7,7 @@ type WorkObj struct {
 	Work PersonalityObj `json:"work"` // Work pointer.
 
 	Language  LanguageType `json:"language"`  // Work language.
-	Timestamp TimestampObj `json:"timestamp"` // Work timestamps.
+	Timestamp HashType     `json:"timestamp"` // Work timestamps.
 	Hash      HashType     `json:"hash"`      // global checksum of the Work
 
 	Tags       []TagType    `json:"tags"`       // теги
@@ -25,9 +25,9 @@ type WorkObj struct {
 type ChapterObj struct {
 	Chapter PersonalityObj `json:"chapter"` // Chapter pointer.
 
-	Timestamp TimestampObj `json:"timestamp"` // Chapter timestamps.
-	Size      SizeObj      `json:"size"`      // size of the Chapter
-	Hash      HashType     `json:"hash"`      // checksum of the Chapter
+	Timestamp TimesObj `json:"timestamp"` // Chapter timestamps.
+	Size      SizesObj `json:"size"`      // size of the Chapter
+	Hash      HashType `json:"hash"`      // checksum of the Chapter
 
 	Data NormalisedTextType `json:"data"` // text of the Chapter
 }
@@ -39,6 +39,6 @@ type BookObj struct {
 	Author PersonalityObj `json:"author"` // Author pointer.
 
 	Work     WorkObj      `json:"work"`     // information about the Work
-	Size     SizeObj      `json:"size"`     // size of the Work
+	Size     SizesObj     `json:"size"`     // size of the Work
 	Chapters []ChapterObj `json:"chapters"` //	chapters of the Work
 }

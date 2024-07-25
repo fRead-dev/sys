@@ -1,7 +1,6 @@
 package buffer
 
 import (
-	"bytes"
 	"strings"
 	"testing"
 )
@@ -20,34 +19,16 @@ func TestBufferObj_WriteRead(t *testing.T) {
 		t.Fatalf("The number of bytes written (%d) is not as expected(%d)", n, len(inputData))
 	}
 
-	outputBuffer := &bytes.Buffer{}
-	n, err = obj.Read(outputBuffer)
+	obj.Close()
+	bb, err := obj.Read()
 	if err != nil {
 		t.Fatalf("Error while reading:%v", err)
 	}
-	if n != int64(len(inputData)) {
-		t.Fatalf("The number of bytes read (%d) is not as expected (%d)", n, len(inputData))
+	if len(bb) != len(inputData) {
+		t.Fatalf("The number of bytes read (%d) is not as expected (%d)", len(bb), len(inputData))
 	}
-	if outputBuffer.String() != inputData {
-		t.Fatalf("Data read (%s) is not as expected (%s)", outputBuffer.String(), inputData)
-	}
-}
-
-func TestBufferObj_Close(t *testing.T) {
-	obj := New()
-
-	inputData := "This is test data"
-	inputReader := strings.NewReader(inputData)
-
-	_, err := obj.Write(inputReader)
-	if err != nil {
-		t.Fatalf("Error while recording: %v", err)
-	}
-
-	obj.Close()
-
-	if obj.data.Len() != 0 {
-		t.Fatalf("The buffer was not cleared after closing")
+	if string(bb) != inputData {
+		t.Fatalf("Data read (%s) is not as expected (%s)", string(bb), inputData)
 	}
 }
 
@@ -68,13 +49,13 @@ func BenchmarkBufferObj_Read(b *testing.B) {
 	obj := New()
 	inputReader := strings.NewReader(inputData)
 	_, err := obj.Write(inputReader)
+	obj.Close()
 	if err != nil {
 		b.Fatalf("Error while recording: %v", err)
 	}
 
 	for i := 0; i < b.N; i++ {
-		outputBuffer := &bytes.Buffer{}
-		_, err := obj.Read(outputBuffer)
+		_, err = obj.Read()
 		if err != nil {
 			b.Fatalf("Error while reading: %v", err)
 		}

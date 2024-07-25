@@ -6,6 +6,8 @@ import (
 )
 
 type BufferObj struct {
-	data *bytes.Buffer
-	mu   *sync.Mutex
+	mu *sync.Mutex
+
+	bufData    *bytes.Buffer
+	uploadData *[]byte
 }

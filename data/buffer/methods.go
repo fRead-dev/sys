@@ -9,18 +9,11 @@ import (
 //###########################################################//
 
 func New() *BufferObj {
-	obj := BufferObj{}
-
-	var data bytes.Buffer
-	var mu sync.Mutex
-
-	obj.data = &data
-	obj.mu = &mu
-
-	return &obj
+	return &BufferObj{
+		data: new(bytes.Buffer),
+		mu:   new(sync.Mutex),
+	}
 }
-
-/////////////////////////////////////
 
 func (obj *BufferObj) Close() {
 	obj.mu.Lock()
@@ -28,14 +21,16 @@ func (obj *BufferObj) Close() {
 	obj.data.Reset()
 }
 
-func (obj *BufferObj) Write(r io.Reader) (n int64, err error) {
+/////////////////////////////////////
+
+func (obj *BufferObj) Write(input io.Reader) (n int64, err error) {
 	obj.mu.Lock()
 	defer obj.mu.Unlock()
-	return obj.data.ReadFrom(r)
+	return obj.data.ReadFrom(input)
 }
 
-func (obj *BufferObj) Read(w io.Writer) (n int64, err error) {
+func (obj *BufferObj) Read(output io.Writer) (n int64, err error) {
 	obj.mu.Lock()
 	defer obj.mu.Unlock()
-	return obj.data.WriteTo(w)
+	return obj.data.WriteTo(output)
 }

@@ -96,6 +96,7 @@ type MethodsGenUrlObject struct {
 type MethodsGenTextObject struct {
 	Normalised func(data LoadWebDataType) (NormalisedTextType, error)
 	Letters    func(data *NormalisedTextType) (uint64, error)
+	Bytes      func(data *NormalisedTextType) uint64
 }
 
 //###########################################################//
@@ -144,5 +145,6 @@ func init() {
 
 		Methods.Gen.Text.Letters = genLettersSum
 		Methods.Gen.Text.Normalised = genNormalisedText
+		Methods.Gen.Text.Bytes = genBytesSum
 	}
 }

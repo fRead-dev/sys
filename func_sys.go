@@ -10,20 +10,13 @@ import (
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-func (sys *MethodsSysObject) Hash(src io.Reader) HashType {
-	var reader bytes.Buffer
-
-	_, err := reader.ReadFrom(src)
-	if err != nil {
-		return ""
-	}
-
+func (sys *MethodsSysObject) Hash(data []byte) HashType {
 	hasher, err := blake2b.New(32, nil)
 	if err != nil {
 		return ""
 	}
 
-	hasher.Write(reader.Bytes())
+	hasher.Write(data)
 	sum := hasher.Sum(nil)
 	hash := hex.EncodeToString(sum)
 

@@ -54,9 +54,10 @@ func BenchmarkDecode(b *testing.B) {
 		b.Fatalf("Encode() error = %v", err)
 	}
 
+	encodeData := encBuf.Bytes()
 	for i := 0; i < b.N; i++ {
 		decBuf.Reset()
-		err := Decode(&encBuf, &decBuf, key)
+		err := Decode(bytes.NewReader(encodeData), &decBuf, key)
 		if err != nil {
 			b.Fatalf("Decode() error = %v", err)
 		}

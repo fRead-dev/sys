@@ -3,10 +3,10 @@ package sys
 const (
 	GlobalName       string = "fReadSYS"
 	GlobalDateUpdate string = "07-26-2024"
-	GlobalHash       string = "0c9df5c72281af156dd285d98e3e6205269f724e"
+	GlobalHash       string = "03e3c104a6b280214727400925bcfebf8db90f3d"
 
-	GlobalVersion      string = "v0.0.11"
+	GlobalVersion      string = "v0.0.12"
 	GlobalVersionMajor string = "v0"
 	GlobalVersionMinor uint16 = 0
-	GlobalVersionPatch uint16 = 11
+	GlobalVersionPatch uint16 = 12
 )

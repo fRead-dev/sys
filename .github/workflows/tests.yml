@@ -8,8 +8,6 @@ on:
       - '**/*.txt'
       - '*.md'
   pull_request:
-    branches:
-      - 'main'
     paths-ignore:
       - '**/*.yml'
       - 'const.go'

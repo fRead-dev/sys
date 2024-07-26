@@ -20,12 +20,14 @@ on:
     paths-ignore:
       - '**/*.yml'
       - 'const.go'
+      - '**/*.txt'
   pull_request:
     branches:
       - 'main'
     paths-ignore:
       - '**/*.yml'
       - 'const.go'
+      - '**/*.txt'
 
 
 permissions:

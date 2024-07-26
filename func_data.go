@@ -23,6 +23,7 @@ func (data *DataObj) Compress() (*DataObj, error) {
 
 	return &DataObj{
 		IsCompress: true,
+		IsCrypt:    data.IsCrypt,
 		Data:       compressedBuffer.Bytes(),
 	}, nil
 }
@@ -42,6 +43,7 @@ func (data *DataObj) Decompress() (*DataObj, error) {
 
 	return &DataObj{
 		IsCompress: false,
+		IsCrypt:    data.IsCrypt,
 		Data:       decompressedBuffer.Bytes(),
 	}, nil
 }

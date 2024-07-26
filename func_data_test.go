@@ -96,10 +96,47 @@ func TestDecrypt(t *testing.T) {
 	}
 }
 
-func TestChunks(t *testing.T) {
+func TestCompressEncrypt(t *testing.T) {
 	data := &DataObj{
 		IsCompress: false,
-		Data:       []byte("this is a test of chunks"),
+		Data:       []byte("test data"),
+	}
+
+	compressedData, err := data.Compress()
+	if err != nil {
+		t.Fatalf("Failed to compress data: %v", err)
+	}
+
+	if !compressedData.IsCompress {
+		t.Errorf("Expected IsCompress to be true, got false")
+	}
+
+	if bytes.Equal(data.Data, compressedData.Data) {
+		t.Errorf("Expected compressed data to be different from original data")
+	}
+
+	//////////
+
+	key := "test key"
+	cData, err := compressedData.Encrypt(key)
+	if err != nil {
+		t.Fatalf("Failed to Encrypt data: %v", err)
+	}
+
+	if !cData.IsCrypt {
+		t.Errorf("Expected IsCrypt to be true, got false")
+	}
+
+	if bytes.Equal(compressedData.Data, cData.Data) {
+		t.Errorf("Expected Encrypt data to be different from original data")
+	}
+}
+
+////
+
+func TestChunks(t *testing.T) {
+	data := &DataObj{
+		Data: []byte("this is a test of chunks"),
 	}
 
 	chunks, err := data.Chunks()
@@ -125,16 +162,13 @@ func TestChunks(t *testing.T) {
 func TestChunksToData(t *testing.T) {
 	// Подготовка данных для теста
 	data1 := &DataObj{
-		IsCompress: false,
-		Data:       []byte("chunk1 "),
+		Data: []byte("chunk1 "),
 	}
 	data2 := &DataObj{
-		IsCompress: false,
-		Data:       []byte("chunk2 "),
+		Data: []byte("chunk2 "),
 	}
 	data3 := &DataObj{
-		IsCompress: false,
-		Data:       []byte("compressed chunk"), // Используйте корректные сжатые данные для вашего случая
+		Data: []byte("chunk3"),
 	}
 
 	// Создание объектов с данными

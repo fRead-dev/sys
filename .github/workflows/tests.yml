@@ -2,8 +2,6 @@ name: Go Tests and Benchmarks
 
 on:
   push:
-    branches:
-      - 'main'
     paths-ignore:
       - '**/*.yml'
       - 'const.go'

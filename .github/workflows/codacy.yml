@@ -15,15 +15,11 @@ name: Codacy Security Scan
 
 on:
   push:
-    branches:
-      - 'main'
     paths-ignore:
       - '**/*.yml'
       - 'const.go'
       - '**/*.txt'
   pull_request:
-    branches:
-      - 'main'
     paths-ignore:
       - '**/*.yml'
       - 'const.go'

@@ -21,5 +21,6 @@ type IntegrityChecksObj struct {
 
 type DataObj struct {
 	IsCompress bool
+	IsCrypt    bool
 	Data       []byte
 }

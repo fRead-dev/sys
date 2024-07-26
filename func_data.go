@@ -3,6 +3,7 @@ package sys
 import (
 	"bytes"
 	fReadCompress "github.com/fRead-dev/sys/data/compress"
+	fReadCrypt "github.com/fRead-dev/sys/data/crypt"
 )
 
 //###########################################################//
@@ -43,6 +44,81 @@ func (data *DataObj) Decompress() (*DataObj, error) {
 		IsCompress: false,
 		Data:       decompressedBuffer.Bytes(),
 	}, nil
+}
+
+////
+
+func (data *DataObj) Encrypt(key string) (*DataObj, error) {
+	if data.IsCrypt {
+		return data, nil
+	}
+
+	var bufData DataObj
+
+	if data.IsCompress {
+		buf, err := data.Decompress()
+		if err != nil {
+			return nil, err
+		}
+		bufData = *buf
+	} else {
+		bufData = *data
+	}
+
+	deBuffer := new(bytes.Buffer)
+	coReader := bytes.NewReader(bufData.Data)
+	err := fReadCrypt.Encode(coReader, deBuffer, key)
+	if err != nil {
+		return nil, err
+	}
+
+	encodeData := DataObj{
+		IsCrypt: true,
+		Data:    deBuffer.Bytes(),
+	}
+
+	if data.IsCompress {
+		buf, err := encodeData.Compress()
+		return buf, err
+	}
+
+	return &encodeData, nil
+}
+func (data *DataObj) Decrypt(key string) (*DataObj, error) {
+	if !data.IsCrypt {
+		return data, nil
+	}
+
+	var bufData DataObj
+
+	if data.IsCompress {
+		buf, err := data.Decompress()
+		if err != nil {
+			return nil, err
+		}
+		bufData = *buf
+	} else {
+		bufData = *data
+	}
+
+	deBuffer := new(bytes.Buffer)
+	coReader := bytes.NewReader(bufData.Data)
+	err := fReadCrypt.Decode(coReader, deBuffer, key)
+	if err != nil {
+		return nil, err
+	}
+
+	decodeData := DataObj{
+		IsCrypt: false,
+		Data:    deBuffer.Bytes(),
+	}
+
+	if data.IsCompress {
+		buf, err := decodeData.Compress()
+		return buf, err
+	}
+
+	return &decodeData, nil
 }
 
 //////////////

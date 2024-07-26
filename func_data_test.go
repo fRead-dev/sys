@@ -49,6 +49,53 @@ func TestDecompress(t *testing.T) {
 	}
 }
 
+func TestEncrypt(t *testing.T) {
+	data := &DataObj{
+		IsCompress: false,
+		Data:       []byte("test data"),
+	}
+	key := "test key"
+
+	cData, err := data.Encrypt(key)
+	if err != nil {
+		t.Fatalf("Failed to Encrypt data: %v", err)
+	}
+
+	if !cData.IsCrypt {
+		t.Errorf("Expected IsCrypt to be true, got false")
+	}
+
+	if bytes.Equal(data.Data, cData.Data) {
+		t.Errorf("Expected Encrypt data to be different from original data")
+	}
+}
+
+func TestDecrypt(t *testing.T) {
+	data := &DataObj{
+		IsCompress: false,
+		Data:       []byte("test data"),
+	}
+	key := "test key"
+
+	cData, err := data.Encrypt(key)
+	if err != nil {
+		t.Fatalf("Failed to Encrypt data: %v", err)
+	}
+
+	deData, err := cData.Decrypt(key)
+	if err != nil {
+		t.Fatalf("Failed to Decrypt data: %v", err)
+	}
+
+	if deData.IsCompress {
+		t.Errorf("Expected IsCrypt to be false, got true")
+	}
+
+	if !bytes.Equal(deData.Data, data.Data) {
+		t.Errorf("Decrypt data does not match the expected value")
+	}
+}
+
 func TestChunks(t *testing.T) {
 	data := &DataObj{
 		IsCompress: false,
@@ -107,6 +154,8 @@ func TestChunksToData(t *testing.T) {
 		t.Errorf("Combined data does not match expected data. Got %s, want %s", combinedData.Data, expectedData)
 	}
 }
+
+///////////////////////////////////////////////
 
 func BenchmarkCompress(b *testing.B) {
 	data := &DataObj{

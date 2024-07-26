@@ -2,60 +2,48 @@ package sys
 
 import (
 	"bytes"
+	"strings"
 	"testing"
 )
 
-func TestCompress(t *testing.T) {
-	data := &DataObj{
-		IsCompress: false,
-		Data:       []byte("test data"),
-	}
+var dataTest = DataObj{Data: []byte("test data")}
+var keyTest = "test key"
 
+func testCompress(t *testing.T, data *DataObj) *DataObj {
 	compressedData, err := data.Compress()
 	if err != nil {
 		t.Fatalf("Failed to compress data: %v", err)
 	}
 
 	if !compressedData.IsCompress {
-		t.Errorf("Expected IsCompress to be true, got false")
+		t.Fatalf("Expected IsCompress to be true, got false")
 	}
 
 	if bytes.Equal(data.Data, compressedData.Data) {
-		t.Errorf("Expected compressed data to be different from original data")
+		t.Fatalf("Expected compressed data to be different from original data")
 	}
+
+	return compressedData
 }
 
-func TestDecompress(t *testing.T) {
-	data := &DataObj{
-		IsCompress: false,
-		Data:       []byte("test data"),
-	}
-	compressedData, err := data.Compress()
-	if err != nil {
-		t.Fatalf("Failed to compress data: %v", err)
-	}
-
-	decompressedData, err := compressedData.Decompress()
+func testDecompress(t *testing.T, data *DataObj) *DataObj {
+	decompressedData, err := data.Decompress()
 	if err != nil {
 		t.Fatalf("Failed to decompress data: %v", err)
 	}
 
 	if decompressedData.IsCompress {
-		t.Errorf("Expected IsCompress to be false, got true")
+		t.Fatalf("Expected IsCompress to be false, got true")
 	}
 
-	if !bytes.Equal(decompressedData.Data, data.Data) {
-		t.Errorf("Decompressed data does not match the expected value")
+	if bytes.Equal(decompressedData.Data, data.Data) {
+		t.Fatalf("Decompressed data does not match the expected value")
 	}
+
+	return decompressedData
 }
 
-func TestEncrypt(t *testing.T) {
-	data := &DataObj{
-		IsCompress: false,
-		Data:       []byte("test data"),
-	}
-	key := "test key"
-
+func testEncrypt(t *testing.T, data *DataObj, key string) *DataObj {
 	cData, err := data.Encrypt(key)
 	if err != nil {
 		t.Fatalf("Failed to Encrypt data: %v", err)
@@ -65,70 +53,55 @@ func TestEncrypt(t *testing.T) {
 		t.Errorf("Expected IsCrypt to be true, got false")
 	}
 
-	if bytes.Equal(data.Data, cData.Data) {
-		t.Errorf("Expected Encrypt data to be different from original data")
+	if bytes.Equal(cData.Data, data.Data) {
+		t.Fatalf("Encrypt data does not match the expected value")
 	}
+
+	return cData
 }
 
-func TestDecrypt(t *testing.T) {
-	data := &DataObj{
-		IsCompress: false,
-		Data:       []byte("test data"),
-	}
-	key := "test key"
-
-	cData, err := data.Encrypt(key)
-	if err != nil {
-		t.Fatalf("Failed to Encrypt data: %v", err)
-	}
-
-	deData, err := cData.Decrypt(key)
+func testDecrypt(t *testing.T, data *DataObj, key string) *DataObj {
+	deData, err := data.Decrypt(key)
 	if err != nil {
 		t.Fatalf("Failed to Decrypt data: %v", err)
 	}
 
-	if deData.IsCompress {
+	if deData.IsCrypt {
 		t.Errorf("Expected IsCrypt to be false, got true")
 	}
 
-	if !bytes.Equal(deData.Data, data.Data) {
-		t.Errorf("Decrypt data does not match the expected value")
+	if bytes.Equal(deData.Data, data.Data) {
+		t.Fatalf("Decrypt data does not match the expected value")
+	}
+
+	return deData
+}
+
+//###########################################################//
+
+func TestCompress(t *testing.T) {
+	testCompress(t, &dataTest)
+}
+
+func TestDecompress(t *testing.T) {
+	compressedData := testCompress(t, &dataTest)
+	decompressedData := testDecompress(t, compressedData)
+
+	if !bytes.Equal(dataTest.Data, decompressedData.Data) {
+		t.Errorf("Expected Compress data to be different from original data")
 	}
 }
 
-func TestCompressEncrypt(t *testing.T) {
-	data := &DataObj{
-		IsCompress: false,
-		Data:       []byte("test data"),
-	}
+func TestEncrypt(t *testing.T) {
+	testEncrypt(t, &dataTest, keyTest)
+}
 
-	compressedData, err := data.Compress()
-	if err != nil {
-		t.Fatalf("Failed to compress data: %v", err)
-	}
+func TestDecrypt(t *testing.T) {
+	encryptData := testEncrypt(t, &dataTest, keyTest)
+	decryptData := testDecrypt(t, encryptData, keyTest)
 
-	if !compressedData.IsCompress {
-		t.Errorf("Expected IsCompress to be true, got false")
-	}
-
-	if bytes.Equal(data.Data, compressedData.Data) {
-		t.Errorf("Expected compressed data to be different from original data")
-	}
-
-	//////////
-
-	key := "test key"
-	cData, err := compressedData.Encrypt(key)
-	if err != nil {
-		t.Fatalf("Failed to Encrypt data: %v", err)
-	}
-
-	if !cData.IsCrypt {
-		t.Errorf("Expected IsCrypt to be true, got false")
-	}
-
-	if bytes.Equal(compressedData.Data, cData.Data) {
-		t.Errorf("Expected Encrypt data to be different from original data")
+	if !bytes.Equal(dataTest.Data, decryptData.Data) {
+		t.Errorf("Expected Crypt data to be different from original data")
 	}
 }
 
@@ -192,14 +165,8 @@ func TestChunksToData(t *testing.T) {
 ///////////////////////////////////////////////
 
 func BenchmarkCompress(b *testing.B) {
-	data := &DataObj{
-		IsCompress: false,
-		Data:       []byte("test data for compression"),
-	}
-
-	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		_, err := data.Compress()
+		_, err := dataTest.Compress()
 		if err != nil {
 			b.Fatalf("Failed to compress data: %v", err)
 		}
@@ -207,11 +174,7 @@ func BenchmarkCompress(b *testing.B) {
 }
 
 func BenchmarkDecompress(b *testing.B) {
-	data := &DataObj{
-		IsCompress: false,
-		Data:       []byte("test data"),
-	}
-	compressedData, err := data.Compress()
+	compressedData, err := dataTest.Compress()
 	if err != nil {
 		b.Fatalf("Failed to compress data: %v", err)
 	}
@@ -228,9 +191,10 @@ func BenchmarkDecompress(b *testing.B) {
 func BenchmarkChunks(b *testing.B) {
 	data := &DataObj{
 		IsCompress: false,
-		Data:       []byte("test data to split into chunks"),
+		Data:       []byte(strings.Repeat(string(dataTest.Data), 1_000_000)),
 	}
 
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_, err := data.Chunks()
 		if err != nil {
@@ -242,10 +206,7 @@ func BenchmarkChunks(b *testing.B) {
 func BenchmarkChunksToData(b *testing.B) {
 	var chunks []DataObj
 	for i := 0; i < 100; i++ {
-		data := &DataObj{
-			IsCompress: false,
-			Data:       []byte("test chunk data "),
-		}
+		data := &dataTest
 		chunks = append(chunks, *data)
 	}
 

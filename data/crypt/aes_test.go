@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestGlobal(t *testing.T) {
+func TestAES(t *testing.T) {
 	originalData := []byte("This is some test data.")
 	key := "testkey1234567890"
 

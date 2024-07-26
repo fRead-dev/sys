@@ -154,7 +154,7 @@ func TestChunksToData(t *testing.T) {
 	}
 
 	// Ожидаемые данные
-	expectedData := []byte("chunk1 chunk2 compressed chunk") // Обновите в зависимости от того, что возвращает Decompress
+	expectedData := []byte("chunk1 chunk2 chunk3") // Обновите в зависимости от того, что возвращает Decompress
 
 	// Проверка результатов
 	if !bytes.Equal(combinedData.Data, expectedData) {

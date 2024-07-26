@@ -24,8 +24,6 @@ on:
       - 'main'
     paths-ignore:
       - '**/*.yml'
-  release:
-    types: [published]
 
 
 permissions:

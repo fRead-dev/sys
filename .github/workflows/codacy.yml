@@ -19,11 +19,13 @@ on:
       - 'main'
     paths-ignore:
       - '**/*.yml'
+      - 'const.go'
   pull_request:
     branches:
       - 'main'
     paths-ignore:
       - '**/*.yml'
+      - 'const.go'
 
 
 permissions:
